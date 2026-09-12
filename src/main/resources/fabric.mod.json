@@ -1,0 +1,22 @@
+{
+	"schemaVersion": 1,
+	"id": "anvil-uncap",
+	"version": "${version}",
+	"name": "Anvil Uncap",
+	"description": "Removes the enchantment level cap when combining items in an anvil.",
+	"authors": ["smokedx"],
+	"contact": {},
+	"license": "MIT",
+	"icon": "",
+	"environment": "*",
+	"entrypoints": {
+		"main": ["com.anviluncap.AnvilUncapMod"]
+	},
+	"mixins": ["anviluncap.mixins.json"],
+	"depends": {
+		"fabricloader": ">=0.19.5",
+		"minecraft": "~26.1.2",
+		"java": ">=25",
+		"fabric-api": "*"
+	}
+}

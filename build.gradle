@@ -1,0 +1,50 @@
+plugins {
+	id 'net.fabricmc.fabric-loom' version '1.17.20'
+}
+
+version = project.mod_version
+group = project.maven_group
+
+base {
+	archivesName = project.archives_base_name
+}
+
+repositories {
+	mavenCentral()
+	maven { url 'https://maven.fabricmc.net/' }
+}
+
+loom {
+	serverOnlyMinecraftJar()
+}
+
+tasks.jar {
+	archiveFileName = "${project.archives_base_name}-fabric-${project.minecraft_version}-${project.mod_version}.jar"
+}
+
+dependencies {
+	minecraft "com.mojang:minecraft:${project.minecraft_version}"
+	implementation "net.fabricmc:fabric-loader:${project.loader_version}"
+	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+	// Required for @ModifyExpressionValue; Fabric Loader auto-bootstraps it
+	implementation "io.github.llamalad7:mixinextras-fabric:${project.mixinextras_version}"
+	include "io.github.llamalad7:mixinextras-fabric:${project.mixinextras_version}"
+}
+
+processResources {
+	inputs.property 'version', project.version
+	filteringCharset 'UTF-8'
+	filesMatching('fabric.mod.json') {
+		expand 'version': project.version
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	it.options.release = 25
+}
+
+java {
+	sourceCompatibility = JavaVersion.VERSION_25
+	targetCompatibility = JavaVersion.VERSION_25
+}
